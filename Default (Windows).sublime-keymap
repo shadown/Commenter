@@ -1,0 +1,4 @@
+[
+	{ "keys": ["ctrl+alt+m"], "command": "commenter_add_comment" },
+	{ "keys": ["ctrl+alt+b"], "command": "commenter_browse_comments" }
+]
