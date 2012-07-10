@@ -30,7 +30,6 @@ git clone git://github.com/shadown/Commenter.git
 
 Open Commenter.sublime-settings and customize the setting as you please.
 
-"""
 {
     "debug"             : false,
     "bookmarks_folder"  : "/Users/shadown/.subl_commenter",
@@ -38,7 +37,6 @@ Open Commenter.sublime-settings and customize the setting as you please.
     "bookmarks_postfix" : "_comments",
     "bookmarks_ext"     : "db"
 }
-"""
 
 Be sure to set "bookmarks_folder" to the directory you want to store the bookmark-database files.
 
