@@ -1,13 +1,13 @@
 # Description
 
-Commenter is a [Sublime Text 2](http://www.sublimetext.com/) package that allows you to create bookmarks with comments, which is useful with reviewing/auditing source code.
+Commenter is a [Sublime Text 2](http://www.sublimetext.com/) package that allows you to create bookmarks with comments, which is useful when auditing source code.
 
-It creates handles bookmarks per working directory you are working on. - It is NOT meant to be used with single files -
+It handles bookmarks per working directory. - It is NOT meant to be used with single files -
 
 ## The workflow goes like
 
 * You open a folder in ST2, which contains the source code you are about to audit
-* Open files with in that folder and press (Cmd + Ctrl + m)
+* Open files within that folder and press (Cmd + Ctrl + m) to create bookmarks
 
 A separete bookmark database will be created for each "Folder" you have open via "File"->"Open...", when you create your first bookmark, in the directory specified in Commenter.sublime-settings
 
@@ -28,7 +28,7 @@ git clone git://github.com/shadown/Commenter.git
 
 ## Configuration
 
-Open Commenter.sublime-settings and customize the setting as you please.
+Open Commenter.sublime-settings and customize the setting as you want.
 
 ```
 {
@@ -46,7 +46,7 @@ Be sure to set "bookmarks_folder" to the directory you want to store the bookmar
 
 ```
 "debug": set it to "true" if you want to see some debug messages in the console embedded in ST2.
-"bookmarks_folder": complete path to the folder where you want to create all the bookmarks-databases.
+"bookmarks_folder": complete path to the folder where you want to create the bookmarks-database files.
 "bookmarks_prefix": prefix you want to add to the bookmark-database filename.
 "bookmarks_postfix": postfix you want to add to the bookmark-database filename.
 "bookmarks_ext": extension you want your database to use.
