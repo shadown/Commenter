@@ -44,11 +44,13 @@ Be sure to set "bookmarks_folder" to the directory you want to store the bookmar
 
 ### The settings are self-explanatories, but anyway here it goes:
 
+```
 "debug": set it to "true" if you want to see some debug messages in the console embedded in ST2.
 "bookmarks_folder": complete path to the folder where you want to create all the bookmarks-databases.
 "bookmarks_prefix": prefix you want to add to the bookmark-database filename.
 "bookmarks_postfix": postfix you want to add to the bookmark-database filename.
 "bookmarks_ext": extension you want your database to use.
+```
 
 # Shortcuts
 
