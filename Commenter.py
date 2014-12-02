@@ -5,7 +5,15 @@
 import sublime, sublime_plugin
 
 import os					# path and file location
-import cPickle as pickle	# metadata storage
+
+st_version = 2
+if sublime.version() == '' or int(sublime.version()) > 3000:
+	st_version = 3
+
+if st_version == 2:
+	import cPickle as pickle	# metadata storage
+else:
+	import pickle	# metadata storage
 
 ############## 
 """SETTINGS"""
@@ -13,13 +21,14 @@ import cPickle as pickle	# metadata storage
 settings = sublime.load_settings('Commenter.sublime-settings').get # (key, None)
 
 if settings('debug'):
-	print "debug:"				, settings("debug")
-	print "show_context_menus:"	, settings("show_context_menus")
-	print "bookmarks_folder:"	, settings("bookmarks_folder")
-	print "bookmarks_prefix:"	, settings("bookmarks_prefix")
-	print "bookmarks_postfix:"	, settings("bookmarks_postfix")
-	print "bookmarks_ext:"		, settings("bookmarks_ext")
-	print "os_sep", os.sep
+	print ("Sublime Text: %lu" % st_version)
+	print ("debug:"				, settings("debug"))
+	print ("show_context_menus:", settings("show_context_menus"))
+	print ("bookmarks_folder:"	, settings("bookmarks_folder"))
+	print ("bookmarks_prefix:"	, settings("bookmarks_prefix"))
+	print ("bookmarks_postfix:"	, settings("bookmarks_postfix"))
+	print ("bookmarks_ext:"		, settings("bookmarks_ext"))
+	print ("os_sep", os.sep)
 
 def getDatabaseForRootFolder(rootFolder):
 	_folder  = settings("bookmarks_folder")
@@ -31,6 +40,9 @@ def getDatabaseForRootFolder(rootFolder):
 	# if the destination dir doesn't exist create it.
 	if not os.path.isdir(_folder):
 		os.mkdir(_folder)
+
+	if settings('debug'):
+		print ("[+] Using: " + _folder + _sep + _prefix + os.path.basename(rootFolder) + _postfix + '.' + _ext)
 
 	return _folder + _sep + _prefix + os.path.basename(rootFolder) + _postfix + '.' + _ext
 
@@ -48,7 +60,7 @@ class CommenterAddCommentCommand(sublime_plugin.TextCommand):
 
 		# we don't want to create a database for a single file.
 		if not self._bookmark['rootFolder']:
-			print "[!] This plug-in is for SourceCode Trees, not for individual files!"
+			print ("[!] This plug-in is for SourceCode Trees, not for individual files!")
 			return
 
 		_prev_comment = self._getPreviousComment()
@@ -73,10 +85,10 @@ class CommenterAddCommentCommand(sublime_plugin.TextCommand):
 		fileName = self._bookmark['fileName']
 		fileLine = self._bookmark['fileLine']
 		
-		if not comments.has_key(filePath):
+		if not filePath in comments:
 			comments[filePath] = dict()
 
-		if not comments[filePath].has_key(fileName):
+		if not fileName in comments[filePath]:
 			comments[filePath][fileName] = dict()
 
 		# if there is a pre-existing comment at that line, we overwrite it
@@ -98,15 +110,15 @@ class CommenterAddCommentCommand(sublime_plugin.TextCommand):
 		fileName = self._bookmark['fileName']
 		fileLine = self._bookmark['fileLine']
 		
-		if not comments.has_key(filePath):
+		if not filePath in comments:
 			# filePath key doesn't exist, no key to delete
 			return
 
-		if not comments[filePath].has_key(fileName):
+		if not fileName in comments[filePath]:
 			# fileName key doesn't exist, no key to delete
 			return
 
-		if not comments[filePath][fileName].has_key(fileLine):
+		if not fileLine in comments[filePath][fileName]:
 			# fileLine key doesn't exist, no key to delete
 			return
 		else:
@@ -163,9 +175,9 @@ class CommenterAddCommentCommand(sublime_plugin.TextCommand):
 			fileName = self._bookmark['fileName']
 			fileLine = self._bookmark['fileLine']
 			
-			if comments.has_key(filePath):
-				if comments[filePath].has_key(fileName):
-					if comments[filePath][fileName].has_key(fileLine):
+			if filePath in comments:
+				if fileName in comments[filePath]:
+					if fileLine in comments[filePath][fileName]:
 						return comments[filePath][fileName][fileLine]
 
 		return ''
@@ -198,7 +210,7 @@ class CommenterBrowseCommentsCommand(sublime_plugin.TextCommand):
 			return
 
 		if settings('debug'):
-			print "Actual Comments:", comments
+			print ("[+] Actual Comments:", comments)
 
 		if not len(comments): return
 
