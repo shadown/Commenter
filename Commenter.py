@@ -23,7 +23,6 @@ settings = sublime.load_settings('Commenter.sublime-settings').get # (key, None)
 if settings('debug'):
 	print ("Sublime Text: %lu" % st_version)
 	print ("debug:"				, settings("debug"))
-	print ("show_context_menus:", settings("show_context_menus"))
 	print ("bookmarks_folder:"	, settings("bookmarks_folder"))
 	print ("bookmarks_prefix:"	, settings("bookmarks_prefix"))
 	print ("bookmarks_postfix:"	, settings("bookmarks_postfix"))

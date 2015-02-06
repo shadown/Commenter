@@ -1,6 +1,5 @@
 {
     "debug"             : false,
-    "show_context_menus": true,
     "bookmarks_folder"  : "/Users/shadown/.subl_commenter",
     "bookmarks_prefix"  : "",
     "bookmarks_postfix" : "_comments",
